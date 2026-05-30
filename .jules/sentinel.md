@@ -1,0 +1,4 @@
+## 2026-05-30 - Insecure Secret Injection via Vite Define
+**Vulnerability:** `GEMINI_API_KEY` was being injected into the client-side bundle using Vite's `define` configuration, and `loadEnv` was configured to load all environment variables from `.env` files without a prefix.
+**Learning:** Using `define` to inject environment variables makes them globally available in the client-side code, which can lead to accidental exposure of sensitive keys if they are bundled. Furthermore, loading environment variables without a prefix (like the default `VITE_`) can accidentally include sensitive system-level environment variables in the build context.
+**Prevention:** Never use `define` for sensitive secrets. Use Vite's built-in environment variable handling with the `VITE_` prefix to ensure only intended variables are exposed to the client. Always use a backend proxy for sensitive API calls if possible.

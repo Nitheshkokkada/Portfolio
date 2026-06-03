@@ -1,0 +1,4 @@
+## 2026-06-03 - [Information Leakage & Input Validation]
+**Vulnerability:** `GEMINI_API_KEY` was being hardcoded into the client-side bundle via Vite's `define` configuration. Additionally, `loadEnv(mode, '.', '')` was used in `vite.config.ts`, which loads all system environment variables, potentially exposing sensitive data. Finally, the contact form lacked input length limits, posing a minor DoS risk.
+**Learning:** Hardcoding secrets or using overly broad environment variable loading in build configurations can lead to accidental exposure of sensitive credentials in the production bundle.
+**Prevention:** Avoid injecting secrets into the client bundle. Use specific prefixes (like `VITE_`) for environment variables intended for the client, and only load necessary environment variables in build scripts. Always implement input length limits on user-facing forms.

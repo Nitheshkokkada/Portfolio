@@ -1,0 +1,4 @@
+## 2025-05-22 - Insecure Environment Variable Exposure in Vite Config
+**Vulnerability:** The `vite.config.ts` was using `loadEnv(mode, '.', '')` which loads ALL environment variables (including system-level ones) into the build context, and was explicitly injecting `GEMINI_API_KEY` into the client-side bundle via the `define` configuration.
+**Learning:** Broadly loading environment variables and manually injecting them via `define` can lead to accidental exposure of sensitive secrets in the production bundle. Vite's default behavior of only loading `VITE_` prefixed variables is a safer default.
+**Prevention:** Avoid using `loadEnv` with an empty prefix and avoid manually injecting secrets into the client bundle. Use a backend proxy or server-side functions if secrets are required for API calls.

@@ -1,0 +1,4 @@
+## 2025-05-15 - Insecure Secret Injection in Vite Config
+**Vulnerability:** The `vite.config.ts` was using `loadEnv(mode, '.', '')` and `define` to inject `GEMINI_API_KEY` (and potentially other environment variables) into the client-side bundle. This hardcodes secrets into the public JavaScript assets.
+**Learning:** Vite's `define` performs literal string replacement at build time. Using `loadEnv` with an empty prefix (`''`) is extremely dangerous as it loads ALL environment variables, including system ones like `PATH` or `HOME`, making them available for injection.
+**Prevention:** Never use `define` to pass secrets to the frontend. Always use the default `VITE_` prefix for non-sensitive public configuration, and keep secrets on the backend. Avoid `loadEnv(mode, '.', '')` in favor of the default behavior which only loads `VITE_` prefixed variables.

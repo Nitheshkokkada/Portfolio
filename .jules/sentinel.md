@@ -1,0 +1,4 @@
+## 2025-05-15 - API key exposure via Vite 'define'
+**Vulnerability:** Use of Vite's `define` configuration to map sensitive environment variables (like `GEMINI_API_KEY`) to the client-side bundle.
+**Learning:** Vite's `define` property performs literal string replacement at build time. Any secrets mapped here are hardcoded into the production JavaScript assets, making them easily discoverable by anyone with access to the site. Additionally, using `loadEnv(mode, '.', '')` without a prefix loads ALL system environment variables, increasing the risk of accidental exposure.
+**Prevention:** Never use `define` to expose sensitive secrets to the client. Use `VITE_` prefixed environment variables for non-sensitive public configuration, and keep sensitive API keys on the server-side, accessed via a backend proxy.

@@ -1,0 +1,4 @@
+## 2025-05-15 - Secret Leakage via Vite Build Configuration
+**Vulnerability:** API keys (GEMINI_API_KEY) were being injected into the production client bundle using Vite's `define` and `loadEnv` configuration, making them publicly accessible in the browser.
+**Learning:** Vite's `define` performs literal string replacement at build time. Mapping environment variables here hardcodes them into the generated assets. Broad `loadEnv(mode, '.', '')` calls can also accidentally load and expose unintended system environment variables if not handled carefully.
+**Prevention:** Never use `define` to inject sensitive secrets into the client bundle. Use a backend proxy for sensitive API calls. Use the default `VITE_` prefix for non-sensitive public configuration to ensure only intended variables are exposed via `import.meta.env`.

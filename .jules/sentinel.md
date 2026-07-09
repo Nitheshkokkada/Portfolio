@@ -1,0 +1,4 @@
+## 2025-05-15 - [Secret leakage in client bundle]
+**Vulnerability:** Environment variables, including sensitive ones like `GEMINI_API_KEY`, were being injected into the frontend client bundle through Vite's `define` configuration and a broad `loadEnv` call.
+**Learning:** Vite's `define` performs literal string replacement at build time, meaning any value mapped here becomes hardcoded in the production JavaScript assets. Using `loadEnv(mode, '.', '')` with an empty prefix loads ALL environment variables, including system ones like `PATH`, which is a significant information leak risk.
+**Prevention:** Avoid injecting sensitive secrets into the client-side bundle. Use the default `VITE_` prefix for non-sensitive public configuration, and handle sensitive operations on a secure backend proxy. Always use specific prefixes with `loadEnv` if it must be used in the config.

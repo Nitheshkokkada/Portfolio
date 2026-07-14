@@ -1,0 +1,4 @@
+## 2026-07-14 - Insecure Secret Injection and Environment Loading
+**Vulnerability:** Broad environment variable loading via `loadEnv(mode, '.', '')` and literal string replacement of secrets in the client bundle via Vite's `define`.
+**Learning:** Vite's `define` configuration performs a literal replacement in the source code at build time, which can lead to hardcoded secrets in the production JavaScript assets if used incorrectly. Additionally, passing an empty string as the third argument to `loadEnv` loads all system environment variables, increasing the risk of accidental information leakage.
+**Prevention:** Avoid injecting sensitive secrets directly into the client bundle. Only use `VITE_` prefixed variables when necessary for public configuration, and use the default `loadEnv` behavior to restrict environment variable access.

@@ -1,0 +1,4 @@
+## 2026-07-18 - Vite broad environment loading and client-side secret exposure
+**Vulnerability:** The application was using broad `loadEnv(mode, '.', '')` which loads all environment variables including builder's sensitive system/local ones, and stringified `process.env.GEMINI_API_KEY` in Vite's `define` block, which hardcodes secrets directly into public production JavaScript assets.
+**Learning:** Vite's `define` performs literal string replacement at compile/build time, meaning any key configured there will be baked into the final client assets even if not actively used in the frontend code. Broad `loadEnv` with an empty string prefix is dangerous as it imports all host machine environment variables.
+**Prevention:** Avoid defining sensitive API keys or credentials in frontend config `define` blocks. If secrets are needed, proxy them through a backend server or configure the default `VITE_` prefix to only expose safe frontend variables.

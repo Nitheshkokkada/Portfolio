@@ -1,0 +1,4 @@
+## 2026-03-05 - Secret Leakage via Vite Define Configuration
+**Vulnerability:** Environment variables containing sensitive API keys or credentials (such as `GEMINI_API_KEY`) being exposed to the client bundle via Vite's `define` property. Vite configures `define` to perform literal string replacements at build time, hardcoding the actual secrets into the production JavaScript bundle.
+**Learning:** Broadly mapping system-wide or project-wide environment variables to client-side configurations using `loadEnv(mode, '.', '')` and `define` leads to accidental bundling of high-privilege keys, especially when the frontend does not actually make direct client-side requests using those secrets.
+**Prevention:** Avoid injecting sensitive API keys directly into Vite's client configuration. Instead, routing requests that require API keys through a secure backend server/proxy, or only exposing safe, non-sensitive public configuration keys with the `VITE_` prefix to the client.

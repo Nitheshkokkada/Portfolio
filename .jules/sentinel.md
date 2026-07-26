@@ -1,0 +1,4 @@
+## 2026-04-08 - Secret Leakage via Vite Build Configuration
+**Vulnerability:** Exposing sensitive environment variables (such as GEMINI_API_KEY) via Vite's `define` configuration or using broad `loadEnv` loading (loading all environment variables without prefixing) causes secrets to be bundled directly into production JavaScript assets.
+**Learning:** Vite's `define` performs static string replacement at build time. When environment variables are defined there, their values are literally injected as strings into the client-side bundle. Additionally, calling `loadEnv` with an empty prefix loads all OS environment variables, creating a high risk of accidental exposure.
+**Prevention:** Avoid defining sensitive variables in Vite's `define` block unless they are specifically meant to be public, and never use broad `loadEnv` calls that load sensitive variables without the `VITE_` prefix. If an API key is needed, access it securely or use a backend proxy.

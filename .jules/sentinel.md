@@ -1,0 +1,4 @@
+## 2026-03-04 - Insecure Environment Variable Loading and Define in Vite Config
+**Vulnerability:** Vite configuration loaded all system and user environment variables without a prefix restriction via `loadEnv(mode, '.', '')`, and compiled the `GEMINI_API_KEY` directly into public-facing client-side JavaScript assets via the `define` option.
+**Learning:** This occurs when developers try to make system or development environment variables available to the client runtime. Even if not directly imported in the source code, defining it globally in Vite configuration exposes these values or risk compiling them into production assets.
+**Prevention:** Never use the empty string prefix `''` with `loadEnv` to load unrestricted environment variables. Use default `VITE_` prefix, and completely avoid compiling backend API keys or user secrets into client bundles. Rely on a backend proxy for secure external API communication instead.

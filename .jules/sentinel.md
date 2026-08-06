@@ -1,0 +1,4 @@
+## 2026-03-02 - Exposing Secrets via Vite build configuration
+**Vulnerability:** Hardcoded and globally exposed build-time environment variables loaded via broad `loadEnv` and Vite's `define` replacement mechanism inside `vite.config.ts`.
+**Learning:** Using `loadEnv(mode, '.', '')` with an empty prefix loads all local and system environment variables into memory, while exposing them via Vite's `define` literally substitutes `process.env.GEMINI_API_KEY` with the raw secret string at build-time. This embeds the API key directly into the client-side production JavaScript bundle.
+**Prevention:** Avoid using broad `loadEnv` calls in build configurations. Never pass system-level secrets to the frontend build configuration unless absolutely necessary, and prefer standard `import.meta.env.VITE_*` prefixes which default to safe filtering. Remove unused build-time environment variable mappings entirely from the bundler configuration.

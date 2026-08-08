@@ -1,0 +1,4 @@
+## 2026-03-01 - Exposing environment variables and secrets via Vite define
+**Vulnerability:** The configuration in `vite.config.ts` was loading environment variables using broad prefix rules (`loadEnv(mode, '.', '')`) and defining `process.env.GEMINI_API_KEY` globally. This can easily result in the leakage of system environment variables and the hardcoding of secrets inside production client-side Javascript bundles if they are ever compiled.
+**Learning:** Broad loadEnv loads everything, and `define` literally replaces code in production build artifacts, posing a secret disclosure risk.
+**Prevention:** Avoid broad loadEnv prefixes in Vite configs, and do not use Vite's `define` property to inject sensitive server-side or build-time API keys unless explicitly intended as public frontend configuration.

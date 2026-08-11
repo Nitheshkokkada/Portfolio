@@ -1,0 +1,4 @@
+## 2026-04-08 - Exposure of secrets via Vite define and loadEnv configurations
+**Vulnerability:** Utilizing `loadEnv` with an empty prefix loader in `vite.config.ts` exposes all system environment variables, while using `define` to map process.env variables hardcodes secrets directly into public production JS client bundles during the build.
+**Learning:** Vite's `define` property performs literal string replacement at compile time. Any secrets mapped there are permanently baked into client-side build artifacts, making them accessible to any user. Additionally, loading environments with broad prefixes can accidentally read and inject system credentials.
+**Prevention:** Avoid using `loadEnv(mode, '.', '')` with an empty third argument. Never map sensitive credential keys in the `define` configuration. Keep secret operations on the server side and rely on client-safe `VITE_` prefixes only for non-sensitive public variables.

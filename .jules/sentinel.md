@@ -1,0 +1,4 @@
+## 2026-03-01 - Prevent Secret Exposure and Environment Information Leakage via Vite Config
+**Vulnerability:** Loading all environment variables without prefix limitations via Vite's `loadEnv` helper and performing literal string replacement on production frontend files via the `define` configuration.
+**Learning:** Vite's `define` performs static text replacement during the compilation phase, hardcoding sensitive secrets directly into production JS chunks. Additionally, calling `loadEnv` with an empty string prefix `''` imports system-level variables (e.g. PATH, USER, shell settings) which risk unintentional leakage if processed or passed around.
+**Prevention:** Avoid defining build-time secrets directly for use in the browser unless explicitly necessary and VITE_ prefixed. Avoid broad `loadEnv` invocations, and ensure that unused definitions are removed from production configurations to adhere to the principle of least privilege.

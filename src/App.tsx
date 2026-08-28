@@ -550,17 +550,18 @@ export default function App() {
               </div>
               <div className="bg-white dark:bg-slate-800 p-10 rounded-3xl shadow-xl border border-slate-100 dark:border-slate-700">
                 <form className="space-y-6" onSubmit={handleSubmit}>
+                  {/* Security: Enforce input length limits to mitigate DoS / resource exhaustion */}
                   <div className="space-y-2">
                     <label className="text-sm font-bold text-slate-400 dark:text-slate-500 uppercase tracking-widest ml-1">Name</label>
-                    <input required type="text" className="w-full p-4 bg-slate-50 dark:bg-slate-700 border-none rounded-2xl focus:ring-2 focus:ring-indigo-500/20 dark:text-white transition-all" placeholder="Your full name" />
+                    <input required maxLength={100} type="text" className="w-full p-4 bg-slate-50 dark:bg-slate-700 border-none rounded-2xl focus:ring-2 focus:ring-indigo-500/20 dark:text-white transition-all" placeholder="Your full name" />
                   </div>
                   <div className="space-y-2">
                     <label className="text-sm font-bold text-slate-400 dark:text-slate-500 uppercase tracking-widest ml-1">Email</label>
-                    <input required type="email" className="w-full p-4 bg-slate-50 dark:bg-slate-700 border-none rounded-2xl focus:ring-2 focus:ring-indigo-500/20 dark:text-white transition-all" placeholder="hello@example.com" />
+                    <input required maxLength={254} type="email" className="w-full p-4 bg-slate-50 dark:bg-slate-700 border-none rounded-2xl focus:ring-2 focus:ring-indigo-500/20 dark:text-white transition-all" placeholder="hello@example.com" />
                   </div>
                   <div className="space-y-2">
                     <label className="text-sm font-bold text-slate-400 dark:text-slate-500 uppercase tracking-widest ml-1">Message</label>
-                    <textarea required rows={4} className="w-full p-4 bg-slate-50 dark:bg-slate-700 border-none rounded-2xl focus:ring-2 focus:ring-indigo-500/20 dark:text-white transition-all" placeholder="Tell me about your project..." />
+                    <textarea required maxLength={2000} rows={4} className="w-full p-4 bg-slate-50 dark:bg-slate-700 border-none rounded-2xl focus:ring-2 focus:ring-indigo-500/20 dark:text-white transition-all" placeholder="Tell me about your project..." />
                   </div>
                   <button 
                     disabled={formStatus !== 'idle'}

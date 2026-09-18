@@ -393,8 +393,15 @@ export default function App() {
     }
   }, [isDarkMode]);
 
-  const handleSubmit = (e: React.FormEvent) => {
+  const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
+    const formData = new FormData(e.currentTarget);
+    const email = (formData.get('email') as string || '').trim();
+    // Security: Input validation to prevent malformed email submissions
+    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+    if (!emailRegex.test(email)) {
+      return;
+    }
     setFormStatus('sending');
     // Simulate API call
     setTimeout(() => {
@@ -552,15 +559,15 @@ export default function App() {
                 <form className="space-y-6" onSubmit={handleSubmit}>
                   <div className="space-y-2">
                     <label className="text-sm font-bold text-slate-400 dark:text-slate-500 uppercase tracking-widest ml-1">Name</label>
-                    <input required type="text" className="w-full p-4 bg-slate-50 dark:bg-slate-700 border-none rounded-2xl focus:ring-2 focus:ring-indigo-500/20 dark:text-white transition-all" placeholder="Your full name" />
+                    <input required name="name" maxLength={100} type="text" className="w-full p-4 bg-slate-50 dark:bg-slate-700 border-none rounded-2xl focus:ring-2 focus:ring-indigo-500/20 dark:text-white transition-all" placeholder="Your full name" />
                   </div>
                   <div className="space-y-2">
                     <label className="text-sm font-bold text-slate-400 dark:text-slate-500 uppercase tracking-widest ml-1">Email</label>
-                    <input required type="email" className="w-full p-4 bg-slate-50 dark:bg-slate-700 border-none rounded-2xl focus:ring-2 focus:ring-indigo-500/20 dark:text-white transition-all" placeholder="hello@example.com" />
+                    <input required name="email" maxLength={254} type="email" className="w-full p-4 bg-slate-50 dark:bg-slate-700 border-none rounded-2xl focus:ring-2 focus:ring-indigo-500/20 dark:text-white transition-all" placeholder="hello@example.com" />
                   </div>
                   <div className="space-y-2">
                     <label className="text-sm font-bold text-slate-400 dark:text-slate-500 uppercase tracking-widest ml-1">Message</label>
-                    <textarea required rows={4} className="w-full p-4 bg-slate-50 dark:bg-slate-700 border-none rounded-2xl focus:ring-2 focus:ring-indigo-500/20 dark:text-white transition-all" placeholder="Tell me about your project..." />
+                    <textarea required name="message" maxLength={2000} rows={4} className="w-full p-4 bg-slate-50 dark:bg-slate-700 border-none rounded-2xl focus:ring-2 focus:ring-indigo-500/20 dark:text-white transition-all" placeholder="Tell me about your project..." />
                   </div>
                   <button 
                     disabled={formStatus !== 'idle'}

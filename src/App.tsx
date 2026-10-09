@@ -528,7 +528,7 @@ export default function App() {
                       <p className="font-bold dark:text-white">nitheshkokkada3@gmail.com</p>
                     </div>
                   </a>
-                  <a href="https://linkedin.com/in/nithesha-k-49bb2a194" target="_blank" rel="noreferrer" className="flex items-center gap-4 p-4 bg-white dark:bg-slate-800 rounded-2xl shadow-sm border border-slate-100 dark:border-slate-700 hover:border-blue-200 dark:hover:border-blue-800 transition-colors group">
+                  <a href="https://linkedin.com/in/nithesha-k-49bb2a194" target="_blank" rel="noopener noreferrer" className="flex items-center gap-4 p-4 bg-white dark:bg-slate-800 rounded-2xl shadow-sm border border-slate-100 dark:border-slate-700 hover:border-blue-200 dark:hover:border-blue-800 transition-colors group">
                     <div className="w-12 h-12 rounded-xl bg-blue-50 dark:bg-blue-900/30 flex items-center justify-center group-hover:bg-blue-100 dark:group-hover:bg-blue-900/50 transition-colors">
                       <Linkedin className="w-6 h-6 text-blue-600 dark:text-blue-400" />
                     </div>
@@ -537,7 +537,7 @@ export default function App() {
                       <p className="font-bold dark:text-white">nithesha-k-49bb2a194</p>
                     </div>
                   </a>
-                  <div className="flex items-center gap-4 p-4 bg-white dark:bg-slate-800 rounded-2xl shadow-sm border border-slate-100 dark:border-slate-700 hover:border-slate-200 dark:hover:border-slate-600 transition-colors group">
+                  <a href="https://github.com/nithesh-k" target="_blank" rel="noopener noreferrer" className="flex items-center gap-4 p-4 bg-white dark:bg-slate-800 rounded-2xl shadow-sm border border-slate-100 dark:border-slate-700 hover:border-slate-200 dark:hover:border-slate-600 transition-colors group">
                     <div className="w-12 h-12 rounded-xl bg-slate-50 dark:bg-slate-700 flex items-center justify-center group-hover:bg-slate-100 dark:group-hover:bg-slate-600 transition-colors">
                       <Github className="w-6 h-6 text-slate-600 dark:text-slate-400" />
                     </div>
@@ -545,7 +545,7 @@ export default function App() {
                       <p className="text-xs font-bold text-slate-400 dark:text-slate-500 uppercase tracking-widest">GitHub</p>
                       <p className="font-bold dark:text-white">nithesh-k</p>
                     </div>
-                  </div>
+                  </a>
                 </div>
               </div>
               <div className="bg-white dark:bg-slate-800 p-10 rounded-3xl shadow-xl border border-slate-100 dark:border-slate-700">
@@ -639,8 +639,9 @@ export default function App() {
             <footer className="absolute bottom-6 w-full max-w-6xl flex flex-col md:flex-row justify-between items-center px-8 gap-4 z-10">
               <span className="text-[10px] sm:text-xs font-bold uppercase tracking-[0.2em] text-slate-400 dark:text-slate-500">© 2026 Nithesha K.</span>
               <div className="flex gap-6 sm:gap-10">
-                <a href="https://linkedin.com/in/nithesha-k-49bb2a194" target="_blank" rel="noreferrer" className="text-[10px] sm:text-xs font-bold uppercase tracking-[0.2em] text-slate-400 dark:text-slate-500 hover:text-indigo-600 dark:hover:text-indigo-400 transition-colors">LinkedIn</a>
-                <a href="#" className="text-[10px] sm:text-xs font-bold uppercase tracking-[0.2em] text-slate-400 dark:text-slate-500 hover:text-indigo-600 dark:hover:text-indigo-400 transition-colors">GitHub</a>
+                {/* Security concern: external links using target="_blank" should include rel="noopener noreferrer" to prevent reverse tabnabbing security risks */}
+                <a href="https://linkedin.com/in/nithesha-k-49bb2a194" target="_blank" rel="noopener noreferrer" className="text-[10px] sm:text-xs font-bold uppercase tracking-[0.2em] text-slate-400 dark:text-slate-500 hover:text-indigo-600 dark:hover:text-indigo-400 transition-colors">LinkedIn</a>
+                <a href="https://github.com/nithesh-k" target="_blank" rel="noopener noreferrer" className="text-[10px] sm:text-xs font-bold uppercase tracking-[0.2em] text-slate-400 dark:text-slate-500 hover:text-indigo-600 dark:hover:text-indigo-400 transition-colors">GitHub</a>
                 <a href="mailto:nitheshkokkada3@gmail.com" className="text-[10px] sm:text-xs font-bold uppercase tracking-[0.2em] text-slate-400 dark:text-slate-500 hover:text-indigo-600 dark:hover:text-indigo-400 transition-colors">Email</a>
               </div>
             </footer>
